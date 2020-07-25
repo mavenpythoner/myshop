@@ -1,0 +1,34 @@
+{% extends 'shop/base.html' %}
+{% block title %}
+	{{ product.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<br><br><br><br>
+<div class="card col-lg-8">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="{{ product.image.url }}" class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a>
+        <p class="card-text">{{ product.price }} MMK<br>{{ product.description }}</p>
+
+        <p class="card-text"><small class="text-muted">{{ product.updated|timesince }} ago</small></p>
+<form action="{% url 'cart:cart_add' product.id %}" method="post">
+  {{ cart_product_form }}
+  {% csrf_token %}
+  <input type="submit" value="Add to cart">
+</form>
+      </div>
+    </div>
+  </div>
+</div>	
+</div>
+
+
+{% endblock %} 
